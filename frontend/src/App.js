@@ -7,7 +7,6 @@ import Dashboard from './Dashboard';
 import { AuthProvider } from './context/AuthContext';
 
 import './App.css';
-import CreatePoll from './pages/CreatePoll';
 
 function App() {
   return (
@@ -21,7 +20,7 @@ function App() {
               <Route path="/register" element={<RegistrationForm />} />
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/create-poll" element={<CreatePoll />} />
+
 
             </Routes>
           </div>

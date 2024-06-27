@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
             navigate('/dashboard');
 
-            console.log('response', response)
+
 
 
         } catch (error) {
@@ -57,6 +57,38 @@ export const AuthProvider = ({ children }) => {
 
     };
 
+    const register = async ({ email, name, phone, role, password }) => {
+        // API integration
+
+        const response = await fetch(URL.REGISTER_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, name, phone, role, password })
+        });
+
+        if (!response.ok) {
+            throw new Error('Invalid credentials');
+        }
+
+        const data = await response.json();
+
+        setToken(data.token);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify({
+            name: data.name,
+            email,
+            role: data.role,
+            userId: data.userId
+        }));
+
+        setUser({ name: data.name, email, role: data.role, userId: data.userId });
+
+        navigate('/dashboard');
+
+    };
+
     const logout = () => {
         setToken('');
         localStorage.removeItem('token');
@@ -65,7 +97,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout }}>
+        <AuthContext.Provider value={{ user, token, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     );

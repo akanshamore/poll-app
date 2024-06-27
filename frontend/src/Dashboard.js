@@ -8,7 +8,6 @@ import CreatePollModal from './components/CreatePollModal';
 const Dashboard = () => {
     const { user, logout } = useContext(AuthContext);
 
-    console.log('user is ', user)
     const [polls, setPolls] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -77,7 +76,7 @@ const Dashboard = () => {
 
 
     const hasVoted = (poll, userId) => {
-        console.log('User id ', userId)
+
         // Check if userId is in any of the votes arrays of poll options
         return poll.options.some(option => option.votes.includes(userId));
     };
