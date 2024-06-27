@@ -1,28 +1,59 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { URL } from '../utils/urls';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
     const [token, setToken] = useState(localStorage.getItem('token') || '');
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (token) {
-            // Mocking a user fetch with token
-            setUser({ name: 'John Doe', email: 'john.doe@example.com', role: 'institute' });
-        }
-    }, [token]);
 
-    const login = (email, password) => {
-        // Mock authentication
-        const mockToken = 'mock-token-12345';
-        setToken(mockToken);
-        localStorage.setItem('token', mockToken);
-        setUser({ name: 'John Doe', email, role: 'institute' });
-        navigate('/dashboard');
+
+    const login = async (email, password) => {
+        // API integration
+
+        try {
+
+
+            const response = await fetch(URL.LOGIN_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (!response.ok) {
+                throw new Error('Invalid credentials');
+            }
+
+            const data = await response.json();
+
+            setToken(data.token);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify({
+                name: data.name,
+                email,
+                role: data.role
+            }));
+
+            setUser({ name: data.name, email, role: data.role });
+
+            navigate('/dashboard');
+
+            console.log('response', response)
+
+
+        } catch (error) {
+
+        }
+
+
+
+
     };
 
     const logout = () => {
