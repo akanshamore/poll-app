@@ -41,13 +41,18 @@ const getPolls = async (req, res) => {
 const voteOnPoll = async (req, res) => {
     const { pollId } = req.params;
     const { optionIndex } = req.body;
+    const userId = req.user._id;
 
     try {
         const poll = await Poll.findById(pollId);
         if (!poll) return res.status(404).send('Poll not found');
 
-        poll.options[optionIndex].votes += 1;
+        // Add userId to the votes array of the specified optionIndex
+        poll.options[optionIndex].votes.push(userId);
+
+        // Save the updated poll document
         await poll.save();
+
         res.send(poll);
     } catch (err) {
         res.status(400).send(err);

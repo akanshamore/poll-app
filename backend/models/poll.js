@@ -5,7 +5,10 @@ const PollSchema = new mongoose.Schema({
     options: [
         {
             optionText: { type: String, required: true },
-            votes: { type: Number, default: 0 },
+            votes: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            }]
         },
     ],
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
