@@ -13,11 +13,14 @@
 .poll-card {
     background-color: #fff;
     border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .poll-card h3 {
     font-size: 20px;
@@ -42,19 +45,17 @@
     color: #888;
 }
 
-
 .create-poll-button {
-    margin-bottom: 20px;
-    text-align: right;
+    margin-top: 20px;
 }
 
 .btn {
-    display: inline-block;
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
-    text-decoration: none;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
@@ -81,4 +82,26 @@
     color: #dc3545;
     font-weight: bold;
     margin-top: 10px;
+}
+
+.voted-message {
+    color: #28a745;
+    /* Green color for voted message */
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.vote-btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+.vote-btn:hover {
+    background-color: #0056b3;
 }

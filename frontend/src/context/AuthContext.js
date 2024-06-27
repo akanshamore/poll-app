@@ -37,10 +37,11 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('user', JSON.stringify({
                 name: data.name,
                 email,
-                role: data.role
+                role: data.role,
+                userId: data.userId
             }));
 
-            setUser({ name: data.name, email, role: data.role });
+            setUser({ name: data.name, email, role: data.role, userId: data.userId });
 
             navigate('/dashboard');
 
@@ -60,7 +61,7 @@ export const AuthProvider = ({ children }) => {
         setToken('');
         localStorage.removeItem('token');
         setUser(null);
-        navigate('/login');
+        navigate('/');
     };
 
     return (
