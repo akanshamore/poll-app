@@ -23,7 +23,14 @@ const createPoll = async (req, res) => {
 // Get Polls
 const getPolls = async (req, res) => {
     try {
-        const polls = await Poll.find({ targetRole: req.user.role });
+        let polls = []
+        if (req.user.role === 'Institute') {
+            polls = await Poll.find({});
+        }
+        else {
+            polls = await Poll.find({ targetRole: req.user.role });
+        }
+
         res.json(polls);
     } catch (err) {
         res.status(400).send(err);
